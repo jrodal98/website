@@ -1,0 +1,100 @@
+%% The MIT License (MIT)
+%%
+%% Copyright (c) 2015 Daniil Belyakov
+%%
+%% Permission is hereby granted, free of charge, to any person obtaining a copy
+%% of this software and associated documentation files (the "Software"), to deal
+%% in the Software without restriction, including without limitation the rights
+%% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%% copies of the Software, and to permit persons to whom the Software is
+%% furnished to do so, subject to the following conditions:
+%%
+%% The above copyright notice and this permission notice shall be included in all
+%% copies or substantial portions of the Software.
+%%
+%% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%% SOFTWARE.
+    % The font could be set to Windows-specific Calibri by using the 'calibri' option
+    \documentclass[]{mcdowellcv}
+
+    % For mathematical symbols
+	\usepackage{amsmath}
+	\usepackage{url}
+
+    
+      % Set applicant's personal data for header
+      \name{Jacob Rodal}
+      \address{\url{cs.virginia.edu/~jr6ff} \linebreak \url{github.com/jrodal98}}
+      \contacts{jr6ff@virginia.edu \linebreak 703-283-9318}
+    
+
+    \begin{document}
+% Print the header
+\makeheader
+      
+
+\begin{cvsection}{Education}
+	\begin{cvsubsection}{BS in Computer Science}{University of Virginia}{Graduating in Dec 2020}
+		\begin{itemize}
+			\item BS in Computer Science, BA in Statistics. \textbf{Cumulative GPA: 3.95}, \textbf{Major GPA: 4.00}
+			\item Selected Coursework: Algorithms, Machine Learning, Data Structures, Cybersecurity, Software Engineering Methods, Applied Linear Models, Linear Algebra, Probability, Mathematical Statistics 
+		\end{itemize}
+	\end{cvsubsection}
+\end{cvsection}
+\begin{cvsection}{Experience}
+	\begin{cvsubsection}{Software Engineer Intern}{Leidos}{May 2019 -- Current}
+		            
+		\begin{itemize}%
+			\item Contributed to the development of open source simultaneous localization and mapping (SLAM) libraries in order to reconstruct 3-D point cloud models from real time video streams.
+			\begin{itemize}
+				\item Added support to allow multiple video streams to contribute towards a single reconstruction.
+				\item Created bag of visual words vocabulary training pipeline for binary descriptors.
+			\end{itemize}
+			
+			\item Led the development of a rust web server capable of directing incoming video data into SLAM processes and directing SLAM data to connected clients.
+			\item Gained experience with computer vision, machine learning, rust, C++, python, docker, git, and gdb.
+		\end{itemize}
+	\end{cvsubsection}
+	\begin{cvsubsection}{Research Assistant}{University of Virginia}{Sept 2019 -- Current}
+		            
+		\begin{itemize}%
+			\item Investigating the use of MANETs (Mobile Ad Hoc Networks) to enable a connected transport system between autonomous vehicles.
+			\item Currently developing an Android mobile application with Kotlin to test the feasibility of ad-hoc communication between pedestrians and autonomous vehicles.
+		\end{itemize}
+	\end{cvsubsection}
+	\begin{cvsubsection}{Teaching Asssistant}{University of Virginia}{Aug 2018 -- May 2019}
+		            
+		\begin{itemize}%
+			\item Provided assistance on problem sets during lectures to 150 ordinary differential equation students.  Graded exams, quizzes, and daily homework assignments.
+		\end{itemize}
+	\end{cvsubsection}
+\end{cvsection}
+\begin{cvsection}{Personal Projects (Source Code Available on Github)}
+	\begin{cvsubsection}{}{}{}
+		\begin{itemize}
+			\setlength\itemsep{3pt}
+			\item \textbf{Grade Manager}  Fully featured PyQT5 desktop application for tracking grades across multiple courses. Supports various grading schemes and offers one light and two dark themes.
+			\item \textbf{PDF-Packages}  TkInter desktop application for bookmarking, combining, and converting PDFs.
+			\item \textbf{Paginated Table Extractor}  Highly efficient data extractor designed to completely automate the extraction of data from HTML tables that only show a subset of all available data per page. 
+			\item \textbf{Whoopie Pie Bot}  A python bot that emails subscribers whenever the University of Virginia dining menus mention whoopie pies.  Deployed on a raspberry pi zero. 
+			\item \textbf{Arch Linux Dotfiles}  My i3, polybar, xresources, zsh, st terminal, and various other configuration files are available to download so that my desktop environment can be easily emulated by others.
+		\end{itemize}
+	\end{cvsubsection}
+\end{cvsection}
+\begin{cvsection}{Technical Skills}
+	\begin{cvsubsection}{}{}{}
+		\begin{itemize}
+			\item \textbf{Programming Languages}:  Python, C++, Java, Rust, R, Kotlin, HTML, CSS, SQL
+			\item \textbf{Linux}: Debian, RPM, and Arch based distributions. Shell scripting with bash, zsh, and python.
+			\item \textbf{Others}:  Git, Docker, Django, QT, Tkinter, Opencv, Numpy, Pandas, Tensorflow, GDB
+		\end{itemize}
+	\end{cvsubsection}
+\end{cvsection}
+
+\ 
+\end{document}
