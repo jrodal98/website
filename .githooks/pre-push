@@ -1,3 +1,3 @@
 #!/bin/bash
-rsync -r * portal:public_html/
+# rsync -r * portal:public_html/ # No longer hosting on UVA cs servers.
 rclone copy docs/Resume.pdf Dropbox:
