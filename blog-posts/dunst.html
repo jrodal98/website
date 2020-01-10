@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.Googletagmanager.com/gtag/js?id=UA-150414564-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'UA-150414564-1');
+        </script>
+        <link rel="icon" href="/assets/img/square_portrait.jpg" type="image/x-icon">
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Dunst Notification Daemon</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lato:300,400,700">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lora">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="../assets/css/Article-Clean.css">
+        <link rel="stylesheet" href="../assets/css/Article-Dual-Column.css">
+        <link rel="stylesheet" href="../assets/css/Article-List.css">
+        <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+        <link rel="stylesheet" href="../assets/css/untitled.css">
+<style type="text/css" media="screen">
+    pre.bash {
+     font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    }
+</style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white text-center portfolio-navbar gradient">
+            <div class="container-fluid"><a class="navbar-brand logo" href="/">Jacob Rodal</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/cv.html">CV</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/projects.html">Projects</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/blog.html">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page projets-page"></main>
+        <div class="article-clean">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+                        <div class="intro">
+                            <h1 class="text-center">Dunst Notification Daemon</h1>
+                            <p class="text-center"><span class="by">by</span> <a href="#">Jacob Rodal</a><span class="date">January 10th, 2020</span></p>
+                        </div>
+                        <div class="text">
+                            <figure><img class="figure-img" src="../assets/img/blog/notifications.png">
+                                <figcaption>Some notifications that I receive with Dunst.</figcaption>
+                            </figure>
+                            <p>When I first started using i3 as my window manager, notifications were an afterthought.  They aren't essential and therefore didn't seem like they were worth my time.  While on a short break between semesters, I decided to configure Dunst, which ended up being a worthwhile time investment.</p>
+
+                            <p>I receive notifications from WhatsApp, Google Messages, GroupMe, and a other popular applications without any configuration needed on my end. I added notifications for battery monitoring, screenshots, eye-health, and more.</p>
+
+                            <p>I'm not going to explain installation or configuration, since the <a href="https://wiki.archlinux.org/index.php/Dunst">Arch Wiki</a> does a better job explaining Dunst than I could.  Instead, I'm going to discuss my custom scripts and more noteworthy customizations as well as some possible ideas that I haven't implemented but think could be worth looking into.</p>
+
+
+                            <h4 class="text-center">Screenshot Management</h4>
+                            <p>I regularly take screenshots, so I thought it would be nice to have notifications set up for that.  Most desktop environments come with a screenshot tool that will take the screenshot, play a camera shutter sound, and tell you where the file has been saved.  Here is a bash script I wrote that does that:
+                            <pre class="bash">
+                                <code>  
+                                    #!/usr/bin/env bash
+                                    # Jacob Rodal (www.jrodal.dev)
+
+                                    # Handles multiple different screenshot modes and sends notifications
+
+                                    function play_sound() {
+                                        if ! $HOME/.config/scripts/do-not-disturb/dnd.sh state; then
+                                           paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga 
+                                        fi
+                                    }
+
+                                    case $1 in
+
+                                        1)
+                                            if maim -u $HOME/Pictures/screenshots/img_$(date +%s).png
+                                            then
+                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
+                                                play_sound
+                                            fi
+                                            ;;
+                                        2)
+                                            tmp_file="$HOME/.config/i3/.tmp_scrot"
+                                            maim -su > $tmp_file
+                                            if [ -s $tmp_file ]
+                                            then
+                                                cat $tmp_file | xclip -selection clipboard -t image/png
+                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Copied to clipboard"
+                                                play_sound
+                                            fi
+                                            rm $tmp_file
+                                            ;;
+                                        3)
+                                            if maim -su $HOME/Pictures/screenshots/img_$(date +%s).png
+                                            then
+                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
+                                                play_sound
+                                            fi
+                                            ;;
+                                        *)
+                                            notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-high-importance-48.png "Error" "Invalid option passed to screenshot script"
+                                            ;;
+                                    esac
+                                </code>
+                            </pre>
+                        </p>
+                        <p>The script is fairly basic.  It takes a single command line argument (a number 1-3), which it uses to determine which type of screenshot to take.  After taking the screenshot, it sends a notification with a camera icon, a title named "screenshot," and the location that the screenshot was saved to.  Then, it plays a camera shutter sound if my do not disturb mode is turned off.  My do not disturb script can be found <a href="https://github.com/jrodal98/scripts/tree/master/do-not-disturb">here</a>. 
+                        </p>
+
+
+                            <h4 class="text-center">Battery Management</h4>
+                            <p>
+                                My battery management notifications are connected to my polybar configuration, which can be found <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/config.ini">here</a>.  The script that actually monitors my battery is <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/scripts/battery-combined-udev.sh">here</a>.  It's a long script, so rather than paste the whole thing, I'll explain the notification aspect of it:
+
+                                <ul>
+                                    <li>Lock files are created to track the current state of the battery.  The two states I have defined are "low battery" and "charging."</li>
+                                    <li>If the device is charging and the charging lock file doesn't exist, the charging lock file is created, the low battery lock file is deleted (if it exists), and a charging notification is sent.</li>
+                                    <li>If the device is not charging, the charging lock file is deleted if it exists.</li>
+                                    <li>If the device is not charging, the battery drops below a certain threshold, and the low battery lock file doesn't exist, the low battery lock file is created and a low battery notification is sent.</li>
+                                </ul>
+                            </p>
+
+                            <p>
+                                The key to my script is that notifications are only sent when transitioning between states, so a charging notification won't be constantly sent, it will only be sent when the device is first plugged in.
+                            </p>
+
+
+
+
+
+                            <h4 class="text-center">Eye Health</h4>
+
+                            <p>You may have heard of the 20-20-20 rule for computers - every 20 minutes, you should focus on an object 20 feet away for 20 seconds to help reduce eyestrain. I have a cronjob set up that sends a notification every 20 minutes telling me to perform this action.  If you don't know what cron is, you should refer to the <a href="https://wiki.archlinux.org/index.php/cron">Arch Wiki</a> to learn more about it and set it up.  This is my cronjob: <code>*/20 * * * * /home/jake/.config/scripts/notification-scripts/info-eyestrain.sh</code> and this is the script: </p>
+
+                            <pre class="bash">
+                                <code>
+                                #!/bin/sh
+                                function play_sound() {
+                                    if ! /home/jake/.config/scripts/do-not-disturb/dnd.sh state; then
+                                       paplay /usr/share/sounds/freedesktop/stereo/message.oga 
+                                    fi
+                                }
+
+                                sudo -u jake DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus dunstify -r 138375 -u normal -i "/home/jake/.local/share/icons/dunst_icons/icons8-eye-48.png" "20-20-20 rule" "Look 20 feet away for 20 seconds"
+                                sudo -u play_sound
+
+
+
+
+                                </code>
+                            </pre>
+
+                            <h4 class="text-center">Marking Workspaces as Urgent</h4>
+
+                            <p>I designate workspace #9 as my Thunderbird email client workspace and workspace #10 as my Rambox workspace (handles Google messages, WhatsApp, GroupMe, etc) and want the workspaces to be marked as urgent when I get a notification.  To do this, I added the following to my Dunst configuration:</p>
+                            <pre class="bash">
+                                <code>
+                                [set_rambox_urgent]
+                                    appname = Rambox
+                                    script = /home/jake/.config/dunst/mark_window_urgent.sh
+
+                                [set_thunderbird_urgent]
+                                    appname = Thunderbird
+                                    script = /home/jake/.config/dunst/mark_window_urgent.sh
+</code>
+                            </pre>
+                            <p>This makes my mark_window_urgent.sh script run whenever notifications from Rambox or Thunderbird are sent.  The appname is automatically sent as the first argument to the script, which is as follows: </p>
+                            <pre class="bash">
+                                <code>
+                                #!/usr/bin/env bash
+                                wmctrl -b add,demands_attention -r $1
+</code>
+                            </pre>
+                            <figure><img class="figure-img" src="../assets/img/blog/urgent_workspace.png">
+                                <figcaption>I got an email while typing this paragraph, hence why workspace #9 is marked as urgent.</figcaption>
+                            </figure>
+
+                            <p>Workspace #9 and Workspace #10 are named "Thunderbird" and "Rambox" in my i3config, which is why I was able to implement this functionality with just one line of code.</p>
+
+                        <h4 class="text-center">Closing Thoughts</h4>
+                        <p>There are some cool things you can do with Dunst that I haven't attempted to implement yet. I haven't messed around with Dunst actions yet, but I'm considering adding an action to my screenshot script that allows me to quickly rename the taken screenshot. Some people use Dunst as a volume/brightness indicator, as seen is this picture that I shamelessly took from the Dunst Arch Wiki page:</p>
+
+                            <figure><img class="figure-img" src="../assets/img/blog/volume_indicator.png">
+                                <figcaption>Source: <a href="https://postimg.cc/hQW4Xccv">https://postimg.cc/hQW4Xccv</a></figcaption>
+
+                            </figure>
+                            <p>My dotfiles can be found <a href="https://github.com/jrodal98/dotfiles">here</a> - my Dunst config is <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/dunst/dunstrc">here</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-basic">
+            <footer>
+                <div class="social"><a data-bs-hover-animate="pulse" href="https://github.com/jrodal98"><i class="icon ion-social-github"></i></a><a data-bs-hover-animate="pulse" href="https://www.linkedin.com/in/jacob-rodal-3baa05166/"><i class="icon ion-social-linkedin"></i></a>
+                    <a
+                        data-bs-hover-animate="pulse" href="mailto:jr6ff@virginia.edu"><i class="icon ion-email"></i></a>
+                </div>
+                <p class="copyright">Jacob Rodal © 2019</p>
+            </footer>
+        </div>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bs-init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+        <script src="../assets/js/theme.js"></script>
+    </body>
+
+</html>
