@@ -28,11 +28,11 @@ gtag('config', 'UA-150414564-1');
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
         <link rel="stylesheet" href="../assets/css/untitled.css">
-<style type="text/css" media="screen">
-    pre.bash {
-     font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
-    }
-</style>
+        <style type="text/css" media="screen">
+pre.bash {
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}
+        </style>
     </head>
 
     <body>
@@ -72,70 +72,70 @@ gtag('config', 'UA-150414564-1');
                             <h4 class="text-center">Screenshot Management</h4>
                             <p>I regularly take screenshots, so I thought it would be nice to have notifications set up for that.  Most desktop environments come with a screenshot tool that will take the screenshot, play a camera shutter sound, and tell you where the file has been saved.  Here is a bash script I wrote that does that:
                             <pre class="bash">
-                                <code>  
-                                    #!/usr/bin/env bash
-                                    # Jacob Rodal (www.jrodal.dev)
+                            <code>
+#!/usr/bin/env bash
+# Jacob Rodal (www.jrodal.dev)
 
-                                    # Handles multiple different screenshot modes and sends notifications
+# Handles multiple different screenshot modes and sends notifications
 
-                                    function play_sound() {
-                                        if ! $HOME/.config/scripts/do-not-disturb/dnd.sh state; then
-                                           paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga 
-                                        fi
-                                    }
+function play_sound() {
+    if ! $HOME/.config/scripts/do-not-disturb/dnd.sh state; then
+       paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
+    fi
+}
 
-                                    case $1 in
+case $1 in
 
-                                        1)
-                                            if maim -u $HOME/Pictures/screenshots/img_$(date +%s).png
-                                            then
-                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
-                                                play_sound
-                                            fi
-                                            ;;
-                                        2)
-                                            tmp_file="$HOME/.config/i3/.tmp_scrot"
-                                            maim -su > $tmp_file
-                                            if [ -s $tmp_file ]
-                                            then
-                                                cat $tmp_file | xclip -selection clipboard -t image/png
-                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Copied to clipboard"
-                                                play_sound
-                                            fi
-                                            rm $tmp_file
-                                            ;;
-                                        3)
-                                            if maim -su $HOME/Pictures/screenshots/img_$(date +%s).png
-                                            then
-                                                notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
-                                                play_sound
-                                            fi
-                                            ;;
-                                        *)
-                                            notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-high-importance-48.png "Error" "Invalid option passed to screenshot script"
-                                            ;;
-                                    esac
-                                </code>
+    1)
+        if maim -u $HOME/Pictures/screenshots/img_$(date +%s).png
+        then
+            notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
+            play_sound
+        fi
+        ;;
+    2)
+        tmp_file="$HOME/.config/i3/.tmp_scrot"
+        maim -su > $tmp_file
+        if [ -s $tmp_file ]
+        then
+            cat $tmp_file | xclip -selection clipboard -t image/png
+            notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Copied to clipboard"
+            play_sound
+        fi
+        rm $tmp_file
+        ;;
+    3)
+        if maim -su $HOME/Pictures/screenshots/img_$(date +%s).png
+        then
+            notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-camera-100.png "Screenshot" "Saved in $HOME/Pictures/screenshots"
+            play_sound
+        fi
+        ;;
+    *)
+        notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-high-importance-48.png "Error" "Invalid option passed to screenshot script"
+        ;;
+esac
+</code>
                             </pre>
-                        </p>
-                        <p>The script is fairly basic.  It takes a single command line argument (a number 1-3), which it uses to determine which type of screenshot to take.  After taking the screenshot, it sends a notification with a camera icon, a title named "screenshot," and the location that the screenshot was saved to.  Then, it plays a camera shutter sound if my do not disturb mode is turned off.  My do not disturb script can be found <a href="https://github.com/jrodal98/scripts/tree/master/do-not-disturb">here</a>. 
-                        </p>
+                            </p>
+                            <p>The script is fairly basic.  It takes a single command line argument (a number 1-3), which it uses to determine which type of screenshot to take.  After taking the screenshot, it sends a notification with a camera icon, a title named "screenshot," and the location that the screenshot was saved to.  Then, it plays a camera shutter sound if my do not disturb mode is turned off.  My do not disturb script can be found <a href="https://github.com/jrodal98/scripts/tree/master/do-not-disturb">here</a>.
+                            </p>
 
 
                             <h4 class="text-center">Battery Management</h4>
                             <p>
-                                My battery management notifications are connected to my polybar configuration, which can be found <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/config.ini">here</a>.  The script that actually monitors my battery is <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/scripts/battery-combined-udev.sh">here</a>.  It's a long script, so rather than paste the whole thing, I'll explain the notification aspect of it:
+                            My battery management notifications are connected to my polybar configuration, which can be found <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/config.ini">here</a>.  The script that actually monitors my battery is <a href="https://github.com/jrodal98/dotfiles/blob/master/.config/polybar/scripts/battery-combined-udev.sh">here</a>.  It's a long script, so rather than paste the whole thing, I'll explain the notification aspect of it:
 
-                                <ul>
-                                    <li>Lock files are created to track the current state of the battery.  The two states I have defined are "low battery" and "charging."</li>
-                                    <li>If the device is charging and the charging lock file doesn't exist, the charging lock file is created, the low battery lock file is deleted (if it exists), and a charging notification is sent.</li>
-                                    <li>If the device is not charging, the charging lock file is deleted if it exists.</li>
-                                    <li>If the device is not charging, the battery drops below a certain threshold, and the low battery lock file doesn't exist, the low battery lock file is created and a low battery notification is sent.</li>
-                                </ul>
+                            <ul>
+                                <li>Lock files are created to track the current state of the battery.  The two states I have defined are "low battery" and "charging."</li>
+                                <li>If the device is charging and the charging lock file doesn't exist, the charging lock file is created, the low battery lock file is deleted (if it exists), and a charging notification is sent.</li>
+                                <li>If the device is not charging, the charging lock file is deleted if it exists.</li>
+                                <li>If the device is not charging, the battery drops below a certain threshold, and the low battery lock file doesn't exist, the low battery lock file is created and a low battery notification is sent.</li>
+                            </ul>
                             </p>
 
                             <p>
-                                The key to my script is that notifications are only sent when transitioning between states, so a charging notification won't be constantly sent, it will only be sent when the device is first plugged in.
+                            The key to my script is that notifications are only sent when transitioning between states, so a charging notification won't be constantly sent, it will only be sent when the device is first plugged in.
                             </p>
 
 
@@ -148,19 +148,15 @@ gtag('config', 'UA-150414564-1');
 
                             <pre class="bash">
                                 <code>
-                                #!/bin/sh
-                                function play_sound() {
-                                    if ! /home/jake/.config/scripts/do-not-disturb/dnd.sh state; then
-                                       paplay /usr/share/sounds/freedesktop/stereo/message.oga 
-                                    fi
-                                }
+#!/bin/sh
+function play_sound() {
+if ! /home/jake/.config/scripts/do-not-disturb/dnd.sh state; then
+paplay /usr/share/sounds/freedesktop/stereo/message.oga
+fi
+}
 
-                                sudo -u jake DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus dunstify -r 138375 -u normal -i "/home/jake/.local/share/icons/dunst_icons/icons8-eye-48.png" "20-20-20 rule" "Look 20 feet away for 20 seconds"
-                                sudo -u play_sound
-
-
-
-
+sudo -u jake DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus dunstify -r 138375 -u normal -i "/home/jake/.local/share/icons/dunst_icons/icons8-eye-48.png" "20-20-20 rule" "Look 20 feet away for 20 seconds"
+sudo -u play_sound
                                 </code>
                             </pre>
 
@@ -169,21 +165,21 @@ gtag('config', 'UA-150414564-1');
                             <p>I designate workspace #9 as my Thunderbird email client workspace and workspace #10 as my Rambox workspace (handles Google messages, WhatsApp, GroupMe, etc) and want the workspaces to be marked as urgent when I get a notification.  To do this, I added the following to my Dunst configuration:</p>
                             <pre class="bash">
                                 <code>
-                                [set_rambox_urgent]
-                                    appname = Rambox
-                                    script = /home/jake/.config/dunst/mark_window_urgent.sh
+[set_rambox_urgent]
+appname = Rambox
+script = /home/jake/.config/dunst/mark_window_urgent.sh
 
-                                [set_thunderbird_urgent]
-                                    appname = Thunderbird
-                                    script = /home/jake/.config/dunst/mark_window_urgent.sh
-</code>
+[set_thunderbird_urgent]
+appname = Thunderbird
+script = /home/jake/.config/dunst/mark_window_urgent.sh
+                                </code>
                             </pre>
                             <p>This makes my mark_window_urgent.sh script run whenever notifications from Rambox or Thunderbird are sent.  The appname is automatically sent as the first argument to the script, which is as follows: </p>
                             <pre class="bash">
                                 <code>
-                                #!/usr/bin/env bash
-                                wmctrl -b add,demands_attention -r $1
-</code>
+#!/usr/bin/env bash
+wmctrl -b add,demands_attention -r $1
+                                </code>
                             </pre>
                             <figure><img class="figure-img" src="../assets/img/blog/urgent_workspace.png">
                                 <figcaption>I got an email while typing this paragraph, hence why workspace #9 is marked as urgent.</figcaption>
@@ -191,8 +187,8 @@ gtag('config', 'UA-150414564-1');
 
                             <p>Workspace #9 and Workspace #10 are named "Thunderbird" and "Rambox" in my i3config, which is why I was able to implement this functionality with just one line of code.</p>
 
-                        <h4 class="text-center">Closing Thoughts</h4>
-                        <p>There are some cool things you can do with Dunst that I haven't attempted to implement yet. I haven't messed around with Dunst actions yet, but I'm considering adding an action to my screenshot script that allows me to quickly rename the taken screenshot. Some people use Dunst as a volume/brightness indicator, as seen is this picture that I shamelessly took from the Dunst Arch Wiki page:</p>
+                            <h4 class="text-center">Closing Thoughts</h4>
+                            <p>There are some cool things you can do with Dunst that I haven't attempted to implement yet. I haven't messed around with Dunst actions yet, but I'm considering adding an action to my screenshot script that allows me to quickly rename the taken screenshot. Some people use Dunst as a volume/brightness indicator, as seen is this picture that I shamelessly took from the Dunst Arch Wiki page:</p>
 
                             <figure><img class="figure-img" src="../assets/img/blog/volume_indicator.png">
                                 <figcaption>Source: <a href="https://postimg.cc/hQW4Xccv">https://postimg.cc/hQW4Xccv</a></figcaption>
