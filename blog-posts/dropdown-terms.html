@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.Googletagmanager.com/gtag/js?id=UA-150414564-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'UA-150414564-1');
+        </script>
+        <link rel="icon" href="/assets/img/square_portrait.jpg" type="image/x-icon">
+
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Dropdown/Scratchpad Terminals with i3</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lato:300,400,700">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lora">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="../assets/css/Article-Clean.css">
+        <link rel="stylesheet" href="../assets/css/Article-Dual-Column.css">
+        <link rel="stylesheet" href="../assets/css/Article-List.css">
+        <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+        <link rel="stylesheet" href="../assets/css/untitled.css">
+        <style type="text/css" media="screen">
+pre.bash {
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white text-center portfolio-navbar gradient">
+            <div class="container-fluid"><a class="navbar-brand logo" href="/">Jacob Rodal</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/cv.html">CV</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/projects.html">Projects</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/blog.html">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page projets-page"></main>
+        <div class="article-clean">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+                        <div class="intro">
+                            <h1 class="text-center">Dropdown/Scratchpad Terminals with i3</h1>
+                            <p class="text-center"><span class="by">by</span> <a href="#">Jacob Rodal</a><span class="date">February 14th, 2020</span></p>
+                        </div>
+                        <div class="text">
+                            <figure><img class="figure-img" src="../assets/img/blog/dropdown_term.png">
+                                <figcaption>One of my many dropdown terminals</figcaption>
+                            </figure>
+                            <p> In this article, I'm going to showoff my dropdown terminals and explain how you can implement them in i3. Currently, I have dropdown terminals for the following applications:
+                            <ul>
+                                <li>General purpose terminal emulator</li>
+                                <li>Nvim notepad for jotting down quick notes</li>
+                                <li>Spotify-tui dropdown for controlling spotify</li>
+                                <li>Taskell dropdown for managing my todos</li>
+                            </ul>
+                            </p>
+
+
+                            <h4 class="text-center">i3 Configuration</h4>
+                            <p> Here is the relevant section of my i3 configuration:
+                            <pre class="bash">
+                            <code>
+# Jacob Rodal (www.jrodal.dev)
+
+# #---Dropdown Windows---# #
+# # General dropdown window traits. The order can matter.
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_*"] move position center
+for_window [instance="dropdown_*"] resize set 800 600
+for_window [instance="dropdown_*"] border pixel 1
+
+for_window [instance="dropdown_spt"] resize set 1200 600
+for_window [instance="dropdown_taskell"] resize set 1200 600
+
+bindsym $mod+t exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh terminal
+bindsym $mod+Shift+t exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh taskell
+bindsym $mod+n exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh notepad
+
+# Spotify controls
+bindsym $mod+Up exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh spt
+</code>
+                            </pre>
+                            </p>
+                            <p>The <code>for_window</code> portion of the configuration essentially sets a series of rules for any windows with the class "dropdown_*", where "*" is the wildcard that means "anything". I have an additional resize rule for my spotify-tui dropdown and my taskell dropdown.</p>
+                            <p>I binded my drop down terminals below the window rules. Each of the bindings is associated with the "toggle-dropdowns.sh" script, which essentially launches the terminals if they haven't already been launched and toggles whether or not they are showing. The code is rather inelegant and duplicate code could certainly be reduced, but I got a bit lazy when I was writing it :). The code is in the secion below.</p>
+
+
+                            <h4 class="text-center">Toggle Dropdowns</h4>
+                            <pre class="bash">
+                            <code>
+#!/usr/bin/env zsh
+source ~/.zshrc
+case $1 in
+    spt)
+        if  [ "_$(xdotool search --classname "dropdown_spt" | head -1)"  = "_" ]; then
+            systemctl --user restart spotifyd.service
+            $TERMINAL --class dropdown_spt -e spt &
+            sleep .1
+            i3-msg "[instance="dropdown_spt"] move position center"
+        else
+            i3-msg "[instance="dropdown_spt"] scratchpad show; [instance="dropdown_spt"] move position center"
+        fi
+        ;;
+    terminal)
+        if  [ "_$(xdotool search --classname "dropdown_term" | head -1)"  = "_" ]; then
+            $TERMINAL --class dropdown_term &
+            sleep .1
+            i3-msg "[instance="dropdown_term"] move position center"
+        else
+            i3-msg "[instance="dropdown_term"] scratchpad show; [instance="dropdown_term"] move position center"
+        fi
+        ;;
+    taskell)
+        if  [ "_$(xdotool search --classname "dropdown_taskell" | head -1)"  = "_" ]; then
+            $TERMINAL --class dropdown_taskell -e taskell $HOME/todo.md &
+            sleep .1
+            i3-msg "[instance="dropdown_taskell"] move position center"
+        else
+            i3-msg "[instance="dropdown_taskell"] scratchpad show; [instance="dropdown_taskell"] move position center"
+        fi
+        ;;
+    notepad)
+        if  [ "_$(xdotool search --classname "dropdown_notepad" | head -1)"  = "_" ]; then
+            $TERMINAL --class dropdown_notepad -e ~/.config/i3/run-notepad &
+            sleep .1
+            i3-msg "[instance="dropdown_notepad"] move position center"
+        else
+            i3-msg "[instance="dropdown_notepad"] scratchpad show; [instance="dropdown_notepad"] move position center"
+        fi
+        ;;
+    *)
+        notify-send -i $HOME/.local/share/icons/dunst_icons/icons8-high-importance-48.png "Error" "Invalid option passed to toggle-dropdowns script."
+        ;;
+esac
+</code>
+                            </pre>
+
+                            <h4 class="text-center">Other Pictures</h4>
+
+                            <figure><img class="figure-img" src="../assets/img/blog/spotifytui.png">
+                                <figcaption>Spotify-tui</figcaption>
+                            </figure>
+                            <figure><img class="figure-img" src="../assets/img/blog/taskell1.png">
+                                <figcaption>Taskell</figcaption>
+                            </figure>
+                            <figure><img class="figure-img" src="../assets/img/blog/notepad.png">
+                                <figcaption>Notepad</figcaption>
+                            </figure>
+                            <figure><img class="figure-img" src="../assets/img/blog/dropdown_overlay.png">
+                                <figcaption>Dropdown terminal on top of another window</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-basic">
+            <footer>
+                <div class="social"><a data-bs-hover-animate="pulse" href="https://github.com/jrodal98"><i class="icon ion-social-github"></i></a><a data-bs-hover-animate="pulse" href="https://www.linkedin.com/in/jacob-rodal-3baa05166/"><i class="icon ion-social-linkedin"></i></a>
+                    <a
+                        data-bs-hover-animate="pulse" href="mailto:jr6ff@virginia.edu"><i class="icon ion-email"></i></a>
+                </div>
+                <p class="copyright">Jacob Rodal © 2019</p>
+            </footer>
+        </div>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bs-init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+        <script src="../assets/js/theme.js"></script>
+    </body>
+
+</html>
