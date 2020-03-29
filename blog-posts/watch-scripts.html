@@ -1,142 +1,146 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.Googletagmanager.com/gtag/js?id=UA-150414564-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-150414564-1');
-    </script>
-    <link rel="icon" href="/assets/img/square_portrait.jpg" type="image/x-icon">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.Googletagmanager.com/gtag/js?id=UA-150414564-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+function gtag() { dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'UA-150414564-1');
+        </script>
+        <link rel="icon" href="/assets/img/square_portrait.jpg" type="image/x-icon">
 
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Launching Scripts from Smartwatch</title>
-    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lato:300,400,700">
-    <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="../assets/css/Article-Clean.css">
-    <link rel="stylesheet" href="../assets/css/Article-Dual-Column.css">
-    <link rel="stylesheet" href="../assets/css/Article-List.css">
-    <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
-    <link rel="stylesheet" href="../assets/css/untitled.css">
-</head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Launching Scripts from Smartwatch</title>
+        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lato:300,400,700">
+        <link rel="stylesheet" href="https://fonts.Googleapis.com/css?family=Lora">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="../assets/css/Article-Clean.css">
+        <link rel="stylesheet" href="../assets/css/Article-Dual-Column.css">
+        <link rel="stylesheet" href="../assets/css/Article-List.css">
+        <link rel="stylesheet" href="../assets/css/Footer-Basic.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+        <link rel="stylesheet" href="../assets/css/untitled.css">
+    </head>
 
-<body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white text-center portfolio-navbar gradient">
-        <div class="container-fluid"><a class="navbar-brand logo" href="/">Jacob Rodal</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/cv.html">CV</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/configuration.html">PC Config</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="/blog.html">Blog</a></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
-    <main class="page projets-page"></main>
-    <div class="article-clean">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
-                <div class="intro">
-                    <h1 class="text-center">Launching Scripts from Smartwatch</h1>
-                    <p class="text-center"><span class="by">by</span> <a href="#">Jacob Rodal</a><span class="date">December 15th, 2019</span></p>
-                </div>
-                <div class="text">
-                    <figure><img class="figure-img" src="../assets/img/blog/watch.jpg">
-                        <figcaption>As seen on <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/">Reddit!</a></figcaption>
-                    </figure>
-                    <p>I got a Ticwatch Pro smartwatch on Black Friday and didn't think it was smart enough.  After some research, I discovered a way to launch scripts from a WearOS smartwatch on a Linux machine using a combination of KDEConnect and Tasker. My original post on Reddit showing off the functionality can be seen <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/">here.</a> The scripts I currently have connected to my watch do the following:
-                        <ul>
-                        <ol><strong>Flex: </strong>Switches to an unused workspace and opens a few terminal showing off my desktop configuration in all its glory.</ol>
-                        <ol><strong>Toggle-Lock: </strong>Either unlocks or locks my laptop, depending on the current state of the laptop.</ol>
-                        <ol><strong>Rick-Roll: </strong>Launches a bash script that rick rolls my terminal.</ol>
-                    </ul></p>
-                    <p>I'm going to explain how I did it.  In order to replicate my work, you'll need an android phone, a computer running Linux, a WearOS smartwatch, and $3.49.</p>
-                    <h4 class="text-center">Launching scripts from an Android device</h4>
-                    <p>First, you'll need to set up KDEConnect so that you can launch scripts from an android device.  My instructions assume you are using arch Linux as your Linux disto and i3 as your window manager, since that's what I use.  It should be very similar on other Linux distributions.
-                    <ol>
-
-                        <li>Install KDEConnect on your laptop with <code>sudo pacman -Syu kdeconnect</code></li>
-                        <li>Add <code>exec --no-startup-id /usr/lib/kdeconnectd</code> to i3config</li>
-                        <li>Optionally, add <code>exec --no-startup-id kdeconnect-indicator</code> to add the kdeconnect-indicator to your system tray.  Personally, I don't think this is necessary, but if you want to, feel free.  I imagine you won't need to do this if you have a full-fledged desktop environment.</li>
-                        <li>restart i3 session</li>
-                        <li>Download the kdeconnect app on your android device</li>
-                        <li>On your laptop, run <code>kdeconnect -cli -l</code> to list the device ids of devices running kdeconnect on your network.<ul><li>My android device didn't show up for me right away, probably because of my University's network. To get around this, I added my laptop's IP address manually on the android application and then they could communicate with each other.</li></ul></li>
-                        <li>run <code>kdeconnect-cli -d DEVICE_ID --pair</code> to pair the devices</li> 
-                        <li>Open the kdeconnect-indicator and add commands you want to run. You'll need to run <code>kdeconnect-indicator</code> if you skipped instruction 3.</li> 
-                    </ol>
-                    
-                    If everything is set up correctly, you should be able to run commands from your phone! Consider adding the KDEConnect command widget to your android home screen. If you don't know what I'm talking about, Google "android widgets" or something like that.</p>
-                <h4 class="text-center">Launching scripts from Wear OS smartwatch</h4>
-                <p>This is where things got a little tricky for me. First off, in order to do this the way I did it, you'll need to purchase Tasker from the Google play store, which costs $3.49. From my limited experience with it, it seems like an amazing application and it's been worth the money for me. There may be other approaches that work for free, but I didn't come across anything from my research. However, a kind user on Reddit pointed out that it might be possible to do this with Automate or MacroDroid, which are free android applications. I can't comment on whether or not those will work, but you can check them out if you don't want to pay the $3.49 for Tasker.
-
-
-                Also, I don't think my solution is the best Tasker based solution. I send a notification dialogue to my smartwatch, but ideally, you would want to map it to a hardware button on your watch. If I get around to doing that, I'll update the README with the alternative instructions. You may want to look at this <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/f9o06bu?utm_source=share&utm_medium=web2x">Reddit comment that outlines an approach for doing this.</a>
-
-                Nevertheless, this is how I did it:
-                <ol>
-                    <li>Download Tasker from Google play </li>
-                    <li>For each KDEConnect command you want on your watch (a maximum of 3): 
-                        <ol>
-                            <li>Copy the command URL by pressing and holding the command</li>
-                            <li>Go to the tasks tab on Tasker</li>
-                            <li>Add the following action: Net -> Browse URL. Paste your URL in the prompt.</li>
-                            <li>Click the add button and name the task whatever you want it to be</li>
-                        </ol>
-                    </li>
-                    <li>Once you have your tasks ready, add another task that will serve as the notification dialogue.
-
-                        <ol>
-                            <li>Add the following action: Alert -> Notify</li>
-                            <li>Fill out title and optionally the text, add notification icon, etc. Make sure that the notification is not set to permanent. At the bottom of the screen, you'll see "Actions." Add your tasks from the previous step (the KDEConnect commands) here.</li>
-                            <li>At the bottom of the screen, you'll see "Actions." Add your tasks from the previous step (the KDEConnect commands) here.</li>
-                            <li>Repeat 1-3 for each of your KDEConnect command tasks.</li>
-                        </ol>
-                    </li>
-                    <li>Launch the notification task in Tasker by clicking on its name under the Tasks tab and hitting the play button. This will send it to your watch's notification screen.</li>
-                </ol>
-                
-                Obviously, there are some improvements to be made here, but this gets the job done for me. I've only had to launch the notification in Tasker twice because I accidentally cleared the notification once. I will update this document if I change my setup significantly.
-
-                These instructions as well as accompanying scripts can be found on my <a href="https://github.com/jrodal98/scripts/tree/master/watch-scripts">Github.</a></p>
-
-
-                <h4 class="text-center">Update</h4>
-
-                <p>I was awarded the <a href="https://www.reddit.com/r/unixporn/wiki/info/postofthemonth">r/unixporn post of the month</a> award for December 2019 - woohoo!</p>
-                
-                
+    <body>
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white text-center portfolio-navbar gradient">
+            <div class="container-fluid"><a class="navbar-brand logo" href="/">Jacob Rodal</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div
+                    class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/cv.html">CV</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/configuration.html">PC Config</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="/blog.html">Blog</a></li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+        <main class="page projets-page"></main>
+        <div class="article-clean">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+                        <div class="intro">
+                            <h1 class="text-center">Launching Scripts from Smartwatch</h1>
+                            <p class="text-center"><span class="by">by</span> <a href="#">Jacob Rodal</a><span class="date">December 15th, 2019</span></p>
+                        </div>
+                        <div class="text">
+                            <div>
+                                <blockquote class="reddit-card" data-card-created="&quot;2020-03-29T18:35:22.583595+00:00&quot;">
+                                    <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/?ref_source=embed&amp;ref=share">[TicWatch Pro] Launching Scripts from Smartwatch</a> from
+                                    <a href="https://www.reddit.com/r/unixporn/">unixporn</a>
+                                </blockquote>
+                                <script async="" src="https://embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+                            </div>
+                            <p>I got a Ticwatch Pro smartwatch on Black Friday and didn't think it was smart enough.  After some research, I discovered a way to launch scripts from a WearOS smartwatch on a Linux machine using a combination of KDEConnect and Tasker. My original post on Reddit showing off the functionality can be seen <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/">here.</a> The scripts I currently have connected to my watch do the following:
+                            <ul>
+                                <ol><strong>Flex: </strong>Switches to an unused workspace and opens a few terminal showing off my desktop configuration in all its glory.</ol>
+                                <ol><strong>Toggle-Lock: </strong>Either unlocks or locks my laptop, depending on the current state of the laptop.</ol>
+                                <ol><strong>Rick-Roll: </strong>Launches a bash script that rick rolls my terminal.</ol>
+                            </ul></p>
+                            <p>I'm going to explain how I did it.  In order to replicate my work, you'll need an android phone, a computer running Linux, a WearOS smartwatch, and $3.49.</p>
+                            <h4 class="text-center">Launching scripts from an Android device</h4>
+                            <p>First, you'll need to set up KDEConnect so that you can launch scripts from an android device.  My instructions assume you are using arch Linux as your Linux disto and i3 as your window manager, since that's what I use.  It should be very similar on other Linux distributions.
+                            <ol>
+
+                                <li>Install KDEConnect on your laptop with <code>sudo pacman -Syu kdeconnect</code></li>
+                                <li>Add <code>exec --no-startup-id /usr/lib/kdeconnectd</code> to i3config</li>
+                                <li>Optionally, add <code>exec --no-startup-id kdeconnect-indicator</code> to add the kdeconnect-indicator to your system tray.  Personally, I don't think this is necessary, but if you want to, feel free.  I imagine you won't need to do this if you have a full-fledged desktop environment.</li>
+                                <li>restart i3 session</li>
+                                <li>Download the kdeconnect app on your android device</li>
+                                <li>On your laptop, run <code>kdeconnect -cli -l</code> to list the device ids of devices running kdeconnect on your network.<ul><li>My android device didn't show up for me right away, probably because of my University's network. To get around this, I added my laptop's IP address manually on the android application and then they could communicate with each other.</li></ul></li>
+                                <li>run <code>kdeconnect-cli -d DEVICE_ID --pair</code> to pair the devices</li>
+                                <li>Open the kdeconnect-indicator and add commands you want to run. You'll need to run <code>kdeconnect-indicator</code> if you skipped instruction 3.</li>
+                            </ol>
+
+                            If everything is set up correctly, you should be able to run commands from your phone! Consider adding the KDEConnect command widget to your android home screen. If you don't know what I'm talking about, Google "android widgets" or something like that.</p>
+                            <h4 class="text-center">Launching scripts from Wear OS smartwatch</h4>
+                            <p>This is where things got a little tricky for me. First off, in order to do this the way I did it, you'll need to purchase Tasker from the Google play store, which costs $3.49. From my limited experience with it, it seems like an amazing application and it's been worth the money for me. There may be other approaches that work for free, but I didn't come across anything from my research. However, a kind user on Reddit pointed out that it might be possible to do this with Automate or MacroDroid, which are free android applications. I can't comment on whether or not those will work, but you can check them out if you don't want to pay the $3.49 for Tasker.
+
+
+                            Also, I don't think my solution is the best Tasker based solution. I send a notification dialogue to my smartwatch, but ideally, you would want to map it to a hardware button on your watch. If I get around to doing that, I'll update the README with the alternative instructions. You may want to look at this <a href="https://www.reddit.com/r/unixporn/comments/e65cb1/ticwatch_pro_launching_scripts_from_smartwatch/f9o06bu?utm_source=share&utm_medium=web2x">Reddit comment that outlines an approach for doing this.</a>
+
+                            Nevertheless, this is how I did it:
+                            <ol>
+                                <li>Download Tasker from Google play </li>
+                                <li>For each KDEConnect command you want on your watch (a maximum of 3):
+                                    <ol>
+                                        <li>Copy the command URL by pressing and holding the command</li>
+                                        <li>Go to the tasks tab on Tasker</li>
+                                        <li>Add the following action: Net -> Browse URL. Paste your URL in the prompt.</li>
+                                        <li>Click the add button and name the task whatever you want it to be</li>
+                                    </ol>
+                                </li>
+                                <li>Once you have your tasks ready, add another task that will serve as the notification dialogue.
+
+                                    <ol>
+                                        <li>Add the following action: Alert -> Notify</li>
+                                        <li>Fill out title and optionally the text, add notification icon, etc. Make sure that the notification is not set to permanent. At the bottom of the screen, you'll see "Actions." Add your tasks from the previous step (the KDEConnect commands) here.</li>
+                                        <li>At the bottom of the screen, you'll see "Actions." Add your tasks from the previous step (the KDEConnect commands) here.</li>
+                                        <li>Repeat 1-3 for each of your KDEConnect command tasks.</li>
+                                    </ol>
+                                </li>
+                                <li>Launch the notification task in Tasker by clicking on its name under the Tasks tab and hitting the play button. This will send it to your watch's notification screen.</li>
+                            </ol>
+
+                            Obviously, there are some improvements to be made here, but this gets the job done for me. I've only had to launch the notification in Tasker twice because I accidentally cleared the notification once. I will update this document if I change my setup significantly.
+
+                            These instructions as well as accompanying scripts can be found on my <a href="https://github.com/jrodal98/scripts/tree/master/watch-scripts">Github.</a></p>
+
+
+                            <h4 class="text-center">Update</h4>
+
+                            <p>I was awarded the <a href="https://www.reddit.com/r/unixporn/wiki/info/postofthemonth">r/unixporn post of the month</a> award for December 2019 - woohoo!</p>
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="footer-basic">
-        <footer>
-            <div class="social"><a data-bs-hover-animate="pulse" href="https://github.com/jrodal98"><i class="icon ion-social-github"></i></a><a data-bs-hover-animate="pulse" href="https://www.linkedin.com/in/jacob-rodal-3baa05166/"><i class="icon ion-social-linkedin"></i></a>
-                <a
-                    data-bs-hover-animate="pulse" href="mailto:jr6ff@virginia.edu"><i class="icon ion-email"></i></a>
-            </div>
-            <p class="copyright">Jacob Rodal © 2019</p>
-        </footer>
-    </div>
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/js/bs-init.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
-    <script src="../assets/js/theme.js"></script>
-</body>
+        <div class="footer-basic">
+            <footer>
+                <div class="social"><a data-bs-hover-animate="pulse" href="https://github.com/jrodal98"><i class="icon ion-social-github"></i></a><a data-bs-hover-animate="pulse" href="https://www.linkedin.com/in/jacob-rodal-3baa05166/"><i class="icon ion-social-linkedin"></i></a>
+                    <a
+                        data-bs-hover-animate="pulse" href="mailto:jr6ff@virginia.edu"><i class="icon ion-email"></i></a>
+                </div>
+                <p class="copyright">Jacob Rodal © 2019</p>
+            </footer>
+        </div>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bs-init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+        <script src="../assets/js/theme.js"></script>
+    </body>
 
 </html>
