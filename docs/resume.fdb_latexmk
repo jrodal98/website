@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1597958019 "resume.tex" "resume.pdf" "resume" 1597958020
+["pdflatex"] 1600728531 "resume.tex" "resume.pdf" "resume" 1600728532
   "/home/jake/.texlive/texmf-var/luatex-cache/generic-dev/fonts/otl/lmroman10-bold.luc" 1597954636 124218 6900ca68b186561077857d3e4236d391 ""
   "/home/jake/.texlive/texmf-var/luatex-cache/generic-dev/fonts/otl/lmroman10-regular.luc" 1597954636 123147 38eb562ddc87d9dfbbce01674b4141a9 ""
   "/home/jake/.texlive/texmf-var/luatex-cache/generic-dev/fonts/otl/lmroman12-bold.luc" 1597954637 124115 5cbd87bb66123d737477b681de97cf98 ""
@@ -127,14 +127,14 @@
   "/usr/share/texmf-dist/tex/luatex/luaotfload/luaotfload-szss.lua" 1591545468 6275 4fd0cca1a6e7347c9f865c64302573b1 ""
   "/usr/share/texmf-dist/tex/luatex/luaotfload/luaotfload-tounicode.lua" 1591545468 7563 64220c90c41e5bc6061dc34e6e4dc82c ""
   "/usr/share/texmf-dist/tex/luatex/luaotfload/luaotfload-unicode.lua" 1591545468 3061 df938c2f24624b5e7d48dc8d6d06b8dd ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1597954332 4727905 1b81189106e2406a827797a37162c1c0 ""
-  "/var/lib/texmf/web2c/luahbtex/lualatex.fmt" 1597954323 2677166 4d8f7c5111605837687bcda09a44eb0d ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1599618921 4727905 1b81189106e2406a827797a37162c1c0 ""
+  "/var/lib/texmf/web2c/luahbtex/lualatex.fmt" 1599618911 2677162 55e9506b53ddeb88959ff1e6763c4f29 ""
   "mcdowellcv.cls" 1588737706 5668 b6e48cf82fd4aee9643b8fc0064f4e13 ""
-  "resume.aux" 1597958020 662 b2b94621371df8d9296b8bf5bec1b851 "pdflatex"
-  "resume.out" 1597958020 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "resume.tex" 1597958018 5485 fa24aecbd0c167ae2108eb22acbc8797 ""
+  "resume.aux" 1600728532 662 b2b94621371df8d9296b8bf5bec1b851 "pdflatex"
+  "resume.out" 1600728531 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "resume.tex" 1600728524 5483 15ef0e72e462a54c1665bd5f8dbeb9ee ""
   (generated)
-  "resume.aux"
   "resume.pdf"
   "resume.log"
   "resume.out"
+  "resume.aux"

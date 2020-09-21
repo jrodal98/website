@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.12.0 (TeX Live 2020/Arch Linux)  (format=lualatex 2020.8.20)  20 AUG 2020 17:13
+This is LuaHBTeX, Version 1.12.0 (TeX Live 2020/Arch Linux)  (format=lualatex 2020.9.8)  21 SEP 2020 18:48
  restricted system commands enabled.
 **resume.tex
 (./resume.tex
@@ -610,14 +610,14 @@ Here is how much of LuaTeX's memory you used:
  511 words of node memory still in use:
    7 hlist, 2 vlist, 3 rule, 2 glue, 4 kern, 1 glyph, 7 attribute, 53 glue_spec,
  7 attribute_list, 1 write nodes
-   avail lists: 1:2,2:664,3:192,4:7,5:228,6:47,7:3537,8:5,9:266,10:4,11:273
+   avail lists: 1:1,2:664,3:192,4:7,5:231,6:47,7:3534,8:5,9:266,10:4,11:269
  31933 multiletter control sequences out of 65536+600000
  59 fonts using 6066443 bytes
  52i,16n,46p,793b,562s stack positions out of 5000i,500n,10000p,200000b,100000s
 </usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/t
 exmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fon
 ts/opentype/public/lm/lmroman10-regular.otf>
-Output written on resume.pdf (1 page, 22378 bytes).
+Output written on resume.pdf (1 page, 22511 bytes).
 
 PDF statistics: 41 PDF objects out of 1000 (max. 8388607)
  24 compressed objects within 1 object stream
