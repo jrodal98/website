@@ -2,7 +2,7 @@
 
 ## Portfolio
 
-I created my website with the help of bootstrap studio, which simplified the templating.  Currently, my website is located [here](https://www.jrodal.dev/).
+I created my website with the help of bootstrap studio, which simplified the templating.  Currently, my website is located [here](https://www.jrodal.com/).
 
 ## Resume
 
