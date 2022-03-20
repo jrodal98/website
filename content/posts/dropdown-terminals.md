@@ -66,7 +66,7 @@ I binded my drop down terminals below the window rules. Each of the bindings is 
 
 ### `toggle-dropdowns.sh`
 
-```bash
+```$HOME/.config/i3/toggle-dropdowns.sh
 #!/usr/bin/env zsh
 source ~/.zshrc
 case $1 in

@@ -9,22 +9,20 @@ tags: [
 "nginx",
 "linux",
 "ssh",
+"github-actions",
 ]
 type: "post"
 ---
 
-I came across a few guides on the internet when trying to deploy a rocket application to a vps but wasn't pleased with the level of detail given. I had to consult two or three different guides before I was successful.
+Tutorial for deploying a web application using Rocket, Virmach VPS, nginx, letsencrypt, systemd, and Github Actions.
 
-This post should hopefully be sufficient for anybody with no experience using nginx, letsencrypt, and systemd.
 <!--more-->
 
 ## Step 1: Acquire a VPS and a Domain
 
-First, you need to figure out where you want to deploy your application. I chose [virmach](https://virmach.com/) because they offer a \$1 linux vps and they accept bitcoin. It gives you 256 MB of memory, 10 GB of disk space, and 500 GB monthly bandwidth, which is more than enough for my needs.
+First, you need to figure out where you want to deploy your application. I chose [virmach](https://virmach.com/) because they offer a dirt cheap \$1 linux vps. It gives you 256 MB of memory, 10 GB of disk space, and 500 GB monthly bandwidth, which is more than enough for my needs. I've been running my application on the \$1 vps for over a year now and have had no issues.
 
-If your VPS doesn't give you a free domain, or if you want a custom domain, you'll probably need to buy one. I got mine from [namecheap](https://www.namecheap.com/) because I was able to get an xyz domain name for \$1, but it doesn't matter where you get yours. You can get a free .tk domain name at [dot.tk](http://www.dot.tk/en/index.html?lang=en), if you don't care about the unorthodox extension.
-
-Virmach and Namecheap: if you're reading this, you're welcome. Please sponsor me.
+I bought my domain from [namecheap](https://www.namecheap.com/) because I was able to get an xyz domain name for \$1, but it doesn't matter where you get yours. You can get a free .tk domain name at [dot.tk](http://www.dot.tk/en/index.html?lang=en), if you don't care about the unorthodox extension.
 
 ## Step 2: Domain Settings
 
@@ -46,7 +44,7 @@ It might take awhile for your changes to propagate across the internet, so be pa
 
 I'm going to assume that you're running something based on debian for simplicity. Downloading and updating packages with other distros will be left as an exercise to the reader.
 
-First, update the list of available packages and then upgrade to the latest versions: 
+First, update the list of available packages and then upgrade to the latest versions:
 
 ```bash
 apt update && apt upgrade
@@ -66,13 +64,13 @@ Lastly, install rust with the following command:
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-You should run `source $HOME/.cargo/env` and `rustup override set nightly` to prepare the rocket rust environment.
+You should run `source $HOME/.cargo/env` to prepare the rocket rust environment.
 
 If you run into a "RUSTUP_UNPACK_RAM must be larger than X" error, try running `export RUSTUP_UNPACK_RAM=X` and trying the rust install again.
 
 ## Step 4: Compile your Application and Create a Systemd Service
 
-Get your source code onto your machine. I'm assuming you know how to do this if you're using rust. If git isn't an option, research rsync to copy files from your host machine to your vps.
+Get your source code onto your machine. I'm assuming you know how to do this if you're using rust. If git isn't an option, research rsync to copy files from your host machine to your vps. Soon, we'll be using Github actions to automate this entire process. But for now, let's make sure we can deploy manually.
 
 `cd` into your project directory (created with cargo) and compile your project
 
@@ -83,7 +81,7 @@ cargo build --release
 
 Next, create a systemd file named /etc/systemd/system/YOUR_DOMAIN.service:
 
-```systemd
+```/etc/systemd/system/YOUR_DOMAIN.service
 [Unit]
 Description=Put a description here
 
@@ -151,10 +149,103 @@ If everything is working, then go ahead and setup https with `certbot --nginx` a
 
 Reload nginx with `systemctl reload nginx`. Navigate to your domain on your browser with `https://YOUR_DOMAIN_NAME`. Verify that it's working.
 
-At this point, you're basically done! I recommend setting up a cron job to auto renew your https certificates. Run `crontab -e` and insert this to run the certbot renew script at the first of each month: 
+I recommend setting up a cron job to auto renew your https certificates. Run `crontab -e` and insert this to run the certbot renew script at the first of each month:
 
 ```plain
 1 1 1 * * certbot renew
+```
+
+## Step 6: CI/CD with Github actions
+
+You don't want to have to manually log into your server, pull your latest changes, build your new binary, and restart your application whenever you push code. We can use Github Actions to automate this.
+
+Each Github actions file is a **workflow**. Workflows are stored in the `.github/workflows` directory of your repository.
+
+You will create two workflows:
+
+1. rust.yml (build and test)
+2. deploy.yml (deploy)
+
+You can name them whatever you want.
+
+### rust.yml
+
+```rust.yml
+name: Rust
+
+on:
+  push:
+    # change this to main if you use that
+    branches: [ master ]
+  pull_request:
+    # change this to main if you use that
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+```
+
+### deploy.yml
+
+```deploy.yml
+name: Deploy
+
+on:
+  workflow_run:
+    # Run after workflow with name "Rust" finishes
+    workflows: [Rust]
+    types:
+      - completed
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    # only run if the build and test workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Copy repository contents via scp
+      uses: appleboy/scp-action@master
+      env:
+        # see github documentation on adding secrets
+        # https://docs.github.com/en/actions/security-guides/encrypted-secrets
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        # See optional section at bottom of post to learn how to get the SSHKey
+        KEY: ${{ secrets.SSHKEY }}
+      with:
+        source: "."
+        target: "/path/to/your/project"
+
+    - name: Executing remote command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        command_timeout: 30m
+        script_stop: true
+        script: |
+             cd /path/to/your/project
+             /root/.cargo/bin/cargo build --release
+             systemctl restart YOUR_DOMAIN.service
 ```
 
 ## Optional: Safer and Easier SSHing into your VPS
