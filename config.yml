@@ -16,7 +16,7 @@ markup:
     guessSyntax: false
     lineNos: true
     noClasses: true
-    lineNumbersInTable: true
+    lineNumbersInTable: false
   goldmark:
     renderer:
       unsafe: true
