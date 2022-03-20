@@ -8,7 +8,7 @@ type: about
 
 <div align="center"
 <figure>
-    <img style="width:35%; border-radius:50%" src="/img/square_portrait.jpg"/>
+    <img style="width:20%; border-radius:50%" src="/img/square_portrait.jpg"/>
 </figure>
 </div>
 
