@@ -1,6 +1,7 @@
-# blog-source
+# website
 
-Hugo source files for my blog
+Made with hugo
+www.jrodal.com
 
 ## Help
 
