@@ -17,6 +17,7 @@ markup:
     lineNos: true
     noClasses: true
     lineNumbersInTable: false
+    style: 'native'
   goldmark:
     renderer:
       unsafe: true
