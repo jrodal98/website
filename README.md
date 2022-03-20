@@ -1,9 +1,9 @@
-# Personal Portfolio and Resume
+# blog-source
 
-## Portfolio
+Hugo source files for my blog
 
-I created my website with the help of bootstrap studio, which simplified the templating.  Currently, my website is located [here](https://www.jrodal.com/).
+## Help
 
-## Resume
-
-My resume is based on a template released under the MIT license that I found [here](https://github.com/dnl-blkv/mcdowell-cv).  A copy of my resume can be found [here](docs/resume.pdf).
+* View files locally: `hugo serve`
+* Generate html: `hugo`
+* Deploy: commit + push the files for this repo, then do the same in the `public` directory.
