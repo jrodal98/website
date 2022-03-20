@@ -38,7 +38,7 @@ Per the [Picom arch wiki page](https://wiki.archlinux.org/index.php/Picom), the 
 
 Add `"name = 'cpt_frame_window'"` to the `shadow-exclude = []` list. For example, this is what mine looks like:
 
-```plain
+```plain {hl_lines=[1,7]}
 shadow-exclude = [
   "name = 'Notification'",
   "class_g = 'Conky'",

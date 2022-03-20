@@ -6,8 +6,6 @@ copyright: Jacob Rodal
 enableRobotsTXT: true
 paginate: 25
 summaryLength: 100
-pygmentsUseClasses: true
-pygmentsCodefences: true
 markup:
   defaultMarkdownHandler: goldmark
   tableOfContents:
@@ -17,6 +15,8 @@ markup:
   highlight:
     guessSyntax: false
     lineNos: true
+    noClasses: true
+    lineNumbersInTable: true
   goldmark:
     renderer:
       unsafe: true
