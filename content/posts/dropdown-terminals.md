@@ -11,27 +11,34 @@ type: "post"
 ---
 
 Tutorial on implementing dropdown terminals in i3 using the scratchpad feature
+
 <!--more-->
 
 ## Examples
 
-<div align="center"
-<figure>
-    <img src="/img/posts/dropdown-terminal/dropdown_term.png"/>
-    <figcaption>
-        <h4>Neofetch</h4>
-    </figcaption>
-</figure>
-</div>
+{{< rawhtml >}}
 
-<div align="center"
-<figure>
-    <img src="/img/posts/dropdown-terminal/spotifytui.png"/>
-    <figcaption>
-        <h4>Spotifytui</h4>
-    </figcaption>
-</figure>
-</div>
+  <div align="center"
+    <figure>
+      <img src="/img/posts/dropdown-terminal/dropdown_term.png"/>
+      <figcaption>
+          <h4>Neofetch</h4>
+      </figcaption>
+    </figure>
+  </div>
+{{</ rawhtml >}}
+
+{{< rawhtml >}}
+
+  <div align="center"
+    <figure>
+      <img src="/img/posts/dropdown-terminal/spotifytui.png"/>
+      <figcaption>
+          <h4>Spotifytui</h4>
+      </figcaption>
+    </figure>
+  </div>
+{{</ rawhtml >}}
 
 ## Implementation
 
@@ -58,7 +65,6 @@ bindsym $mod+n exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh notepad
 # Spotify controls
 bindsym $mod+Up exec --no-startup-id $HOME/.config/i3/toggle-dropdowns.sh spt
 ```
-
 
 The for_window portion of the configuration essentially sets a series of rules for any windows with the class `"dropdown_*"`, where `"*"` is the wildcard that means "anything". I have an additional resize rule for my spotify-tui dropdown and my taskell dropdown.
 

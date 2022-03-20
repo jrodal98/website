@@ -18,6 +18,8 @@ Tutorial for deploying a web application using Rocket, Virmach VPS, nginx, letse
 
 <!--more-->
 
+{{< toc >}}
+
 ## Step 1: Acquire a VPS and a Domain
 
 First, you need to figure out where you want to deploy your application. I chose [virmach](https://virmach.com/) because they offer a dirt cheap \$1 linux vps. It gives you 256 MB of memory, 10 GB of disk space, and 500 GB monthly bandwidth, which is more than enough for my needs. I've been running my application on the \$1 vps for over a year now and have had no issues.
@@ -30,11 +32,14 @@ Next, you'll need to point your domain to your server. You do this by creating a
 
 This will probably appear in the DNS settings for your domain at your domain registrar. For me, I went to namecheap and then went to "advanced dns" for my domain. I added the records like so:
 
-<div align="center"
-<figure>
-<img src="/img/posts/how-to-deploy-rocket-rust-web-application-on-vps/dns_records.png"/>
-</figure>
-</div>
+{{< rawhtml >}}
+
+  <div align="center"
+    <figure>
+      <img src="/img/posts/how-to-deploy-rocket-rust-web-application-on-vps/dns_records.png"/>
+    </figure>
+  </div>
+{{</ rawhtml >}}
 
 where **IP Address** is the static IP address of your VPS and **Target** is your domain name.
 
