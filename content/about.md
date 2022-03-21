@@ -1,6 +1,6 @@
 ---
 title: "Jacob Rodal"
-date: 2022-03-19T19:45:56-07:00
+date: 2019-12-01
 author: Jacob Rodal
 draft: false
 type: about
