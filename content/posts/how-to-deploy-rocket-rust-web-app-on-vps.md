@@ -10,6 +10,7 @@ tags: [
 "linux",
 "ssh",
 "github-actions",
+"web-dev",
 ]
 type: "post"
 ---
