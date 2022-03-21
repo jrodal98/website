@@ -263,7 +263,7 @@ body:not(.theme-dark),
   --theme-table-border-dark: #c7c7c7;
   --theme-border-white-high-contrast: rgba(255, 255, 255, 0);
   --theme-border-black-high-contrast: rgba(0, 0, 0, 0.05);
-  --theme-code-highlight-background: rgb(250, 249, 248);
+  --theme-code-highlight-background: #2d2d2d;
   --theme-inline-code: #e6e6e6;
   --theme-visited: #660099;
   --theme-primary-base: #0065b3;
@@ -846,12 +846,12 @@ li.hashed-tag {
   display: block; }
   .highlight .code-helper {
     box-sizing: content-box;
-    background-color: var(--theme-body-background-dark);
-    color: var(--theme-text);
+    background-color: var(--theme-code-highlight-background);
+    color: #e3e3e3;
     display: flex;
     flex-direction: row;
     font-size: 0.8rem;
-    border: 1px solid var(--theme-border);
+    border: 1px solid #454545;
     border-bottom: 0;
     margin-top: 16px;
     min-height: 30px; }
@@ -865,9 +865,9 @@ li.hashed-tag {
     .highlight .code-helper button {
       padding: 0 4px;
       background-color: transparent;
-      border: 0 solid var(--theme-border);
+      border: 0 solid #454545;
       border-left-width: 1px;
-      color: var(--theme-text);
+      color: #e3e3e3;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -882,7 +882,7 @@ li.hashed-tag {
   .highlight pre {
     font-size: 0.875rem;
     overflow: auto;
-    border: 1px solid var(--theme-border);
+    border: 1px solid #454545;
     background-color: var(--theme-code-highlight-background);
     padding: 0.5rem;
     margin: 0rem 0 0;
