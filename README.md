@@ -1,10 +1,7 @@
-# website
+# Website
 
-Made with hugo
-www.jrodal.com
-
-## Help
-
-* View files locally: `hugo serve`
-* Generate html: `hugo`
-* Deploy: commit + push the files for this repo, then do the same in the `public` directory.
+* Link: <https://www.jrodal.com>
+* Made with hugo using the fluency theme by wayjam
+    * Original: <https://github.com/wayjam/hugo-theme-fluency>
+    * My fork: <https://github.com/jrodal98/hugo-theme-fluency>
+* CI/CD with Github actions to build and publish to gh-pages branch
