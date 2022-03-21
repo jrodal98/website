@@ -58,9 +58,10 @@ menu:
       url: /about/
       weight: 4
   footer:
-    - identifier: github
+    # hacking identifier to be ionicon name: https://ionic.io/ionicons
+    - identifier: logo-github
       url: "https://github.com/jrodal98"
       name: Github
-    - identifier: linkedin
+    - identifier: logo-linkedin
       url: "https://www.linkedin.com/in/jacob-rodal"
       name: LinkedIn
