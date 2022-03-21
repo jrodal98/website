@@ -16,15 +16,15 @@ Tutorial for deploying a Hugo site to Github pages using Github Actions. Focus o
 
 {{< toc >}}
 
-## Step 0: Follow Hugo quickstart
+## Step 0: Follow Hugo Quick Start
 
-This guide assumes you already followed the Hugo quickstart guide, which you can find [here](https://gohugo.io/getting-started/quick-start/).
+This post assumes you already followed the Hugo quick start guide, which you can find [here](https://gohugo.io/getting-started/quick-start/).
 
 ## Step 1: Commit Blog Source to Github
 
-1) If you haven't already, create a new repository on Github [here](https://github.com/new).
+1) Create a new repository on Github [here](https://github.com/new).
 
-2) Push your repository to github
+2) Push your local repository to Github
 ```bash
 git remote add origin URL_OF_YOUR_GITHUB_REPO
 git push -u origin master
@@ -51,7 +51,7 @@ git checkout master
 
 Put this file at `.github/workflows/gh-pages.yml`:
 
-```.github/workflows/gh-pages.yml
+```.github/workflows/gh-pages.yml {hl_lines=["6-7","31-32","36-37"]}
 name: GitHub Pages
 
 on:
@@ -87,7 +87,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          # if you are using a custon domain, put it here
+          # if you are using a custom domain, put it here
           # cname: www.example.com
 ```
 
@@ -96,6 +96,6 @@ Commit the change.
 ## Step 4: Verify Everything is Working
 
 * Wait a few minutes
-* Go to https://YOUR_USERNAME/YOUR_REPONAME (or your custom domain)
+* Go to `https://YOUR_USERNAME/YOUR_REPONAME` (or your custom domain)
 * Your site should be there with new changes.
-* Go into incognito mode or open a new browser if nothing has changed (it's possible your browser is caching)
+* Go into incognito mode or open a new browser if nothing has changed (it's possible your browser is returning a cached result)
