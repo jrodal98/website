@@ -59,10 +59,16 @@ apt update && apt upgrade
 Next, install some necessary packages:
 
 ```bash
-apt install curl git gcc nginx certbot python-certbot-nginx
+apt install curl git gcc nginx python3 python3-venv
 ```
 
-If you have issues downloading `python-certbox-nginx`, try running `apt install software-properties-common dirmngr --install-recommends` followed by `add-apt-repository ppa:certbot/certbot`. Then, try reinstalling `python-certbot-nginx`.
+Next, install certbot:
+
+```
+python3 -m venv /opt/certbot/
+/opt/certbot/bin/pip install certbot certbot-nginx
+ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+```
 
 Lastly, install rust with the following command:
 
@@ -111,6 +117,16 @@ Start your service with `systemctl start YOUR_DOMAIN.service` and enable it to r
 
 ## Step 5: Setup Nginx Webserver
 
+
+Generate some self-signed SSL certificates:
+
+```bash
+mkdir /etc/ssl/private
+chmod 700 /etc/ssl/private
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+```
+
 Put something like this in /etc/nginx/sites-available/YOUR_DOMAIN:
 
 ```nginx
@@ -132,6 +148,10 @@ server {
 
     server_name YOUR_DOMAIN_NAME www.YOUR_DOMAIN_NAME;
 
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
     location / {
         # Forward requests to rocket
         proxy_pass http://127.0.0.1:8000;
@@ -147,7 +167,7 @@ ln -s /etc/nginx/sites-available/YOUR_DOMAIN /etc/nginx/sites-enabled/
 
 Check your syntax with `nginx -t`.
 
-Make sure to delete the default nginx file with `rm /etc/nginx/sites-available/default && rm /etc/nginx/sites-available/default`.
+Make sure to delete the default nginx file with `rm /etc/nginx/sites-available/default && rm /etc/nginx/sites-enabled/default`.
 
 Reload nginx with `systemctl reload nginx`. Navigate to your domain on your browser with `http://YOUR_DOMAIN_NAME`. Verify that it's working.
 
