@@ -10,7 +10,7 @@ tags: [
 type: "post"
 ---
 
-Tutorial on implementing dropdown terminals in i3 using the scratchpad feature
+This tutorial provides a step-by-step guide on how to implement dropdown terminals in i3 using the scratchpad feature. The tutorial includes examples of how the dropdown terminals can be used and provides a detailed explanation of the necessary i3 configuration and accompanying script.
 
 <!--more-->
 

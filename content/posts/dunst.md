@@ -10,7 +10,7 @@ tags: [
 type: "post"
 ---
 
-A discussion on my Dunst screenshot actions, which include OCR, uploading to 0x0.st, deletion, renaming, and movement to/from clipboard
+This tutorial includes a description of Dunst and its capabilities, as well as a detailed explanation of the my Dunst screenshot actions, which include OCR, uploading to 0x0.st, deletion, renaming, and movement to/from clipboard.
 <!--more-->
 
 <div align="center"

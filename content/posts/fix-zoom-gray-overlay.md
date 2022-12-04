@@ -12,15 +12,16 @@ tags: [
 type: "post"
 ---
 
-Are you a Compton/Picom user that has a gray overlay that appears when sharing or recording your screen when using zoom? Here's a possible fix.
+This article describes a fix for a problem with the Picom/Compton compositor, which is often used with Linux window managers like i3 or qtile. The instructions in the article provide detailed steps on how to locate the configuration file and make the necessary changes.
+
 <!--more-->
 
 ## tl;dr
 
-1) Run `pgrep -l "compton|picom"` to verify that you are running Picom
-2) Locate your Picom configuration file. It is either at `~/.config/picom/picom.conf` or `~/.config/picom.conf`. If you don't have this file, run `cp /etc/xdg/picom.conf.example ~/.config/picom.conf`
-3) Add `"name = 'cpt_frame_window'"` to the `shadow-exclude = []` list
-4) Restart compositor with `pkill compton && compton -b` or `pkill picom && picom -b`, depending on the name of the compositor process
+1. Run `pgrep -l "compton|picom"` to verify that you are running Picom
+2. Locate your Picom configuration file. It is either at `~/.config/picom/picom.conf` or `~/.config/picom.conf`. If you don't have this file, run `cp /etc/xdg/picom.conf.example ~/.config/picom.conf`
+3. Add `"name = 'cpt_frame_window'"` to the `shadow-exclude = []` list
+4. Restart compositor with `pkill compton && compton -b` or `pkill picom && picom -b`, depending on the name of the compositor process
 
 ## Verifying that you are using comptom/Picom
 

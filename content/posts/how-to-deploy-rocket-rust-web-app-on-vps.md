@@ -15,7 +15,7 @@ tags: [
 type: "post"
 ---
 
-Tutorial for deploying a web application using Rocket, Virmach VPS, nginx, letsencrypt, systemd, and Github Actions.
+This tutorial provides a step-by-step guide on how to deploy a Rocket Rust web application on a VPS. The tutorial covers all the necessary steps, including acquiring a VPS and domain, setting up domain settings, downloading and installing necessary software on the VPS, and compiling the application. The tutorial also includes helpful tips and troubleshooting advice, making it a useful resource for anyone looking to deploy a Rocket Rust web application on a VPS.
 
 <!--more-->
 
@@ -116,7 +116,6 @@ You might not want to use root as the user, depending on your vps. Research syst
 Start your service with `systemctl start YOUR_DOMAIN.service` and enable it to run on system startup with `systemctl enable YOUR_DOMAIN.service`. Your application should now be running - check with `systemctl status YOUR_DOMAIN.service`
 
 ## Step 5: Setup Nginx Webserver
-
 
 Generate some self-signed SSL certificates:
 
